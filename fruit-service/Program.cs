@@ -16,13 +16,11 @@ const string SERVICE_VERSION = "1.0.0";
 const string OTLP_TRACING_ENDPOINT = "https://otlp.nr-data.net:4318/v1/traces";
 const string OTLP_METRIC_ENDPOINT = "https://otlp.nr-data.net:4318/v1/metrics";
 var newRelicApiKey = builder.Configuration.GetSection("NEW_RELIC").GetValue<string>("API_KEY");
-
 var resourceBuilder = ResourceBuilder.CreateDefault().AddService(serviceName: SERVICE_NAME, serviceVersion: SERVICE_VERSION).AddTelemetrySdk();
 
 builder.Services.AddOpenTelemetryTracing(b => {
     b.SetResourceBuilder(resourceBuilder)
     .AddOtlpExporter(options => options.Endpoint = new Uri(OTLP_TRACING_ENDPOINT))
-    .AddConsoleExporter()
     .AddHttpClientInstrumentation()
     .AddAspNetCoreInstrumentation();
 });
@@ -30,7 +28,6 @@ builder.Services.AddOpenTelemetryTracing(b => {
 builder.Services.AddOpenTelemetryMetrics(b => {
     b.SetResourceBuilder(resourceBuilder)
     .AddOtlpExporter(options => options.Endpoint = new Uri(OTLP_METRIC_ENDPOINT))
-    .AddConsoleExporter()
     .AddHttpClientInstrumentation()
     .AddAspNetCoreInstrumentation();
 });
