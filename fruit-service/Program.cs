@@ -16,7 +16,6 @@ if (builder.Environment.IsDevelopment())
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fruit Service v1"));
-app.UseHttpsRedirection();
 
 app.MapGet("/fruits", () => {
     return Results.Ok(Enumerable.Range(1, 5).Select(index => new Fruit
