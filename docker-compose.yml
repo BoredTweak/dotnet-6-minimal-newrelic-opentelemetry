@@ -5,5 +5,5 @@ services:
     ports:
     - "8080:80"
     build: ./fruit-service
-    environment:
-      NEW_RELIC__API_KEY: ""
+    env_file:
+    - .env
